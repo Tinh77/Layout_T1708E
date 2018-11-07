@@ -1,0 +1,98 @@
+﻿@model IEnumerable<T1708ENewWeb.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title float-left">
+            List Student
+            <small class="text-muted"></small>
+        </h3>
+        <a asp-action="Create" class="btn float-right"><i class="far fa-plus-square"></i> Create New</a>
+        <div class="clearfix"></div>
+        <div class="alert alert-success d-none" role="alert" id="messageSuccess"></div>
+        <div class="alert alert-danger d-none" role="alert" id="messageError"></div>
+        @*@if (count($bakeries_in_view) > 0)*@
+        <div class="row m-1">
+            <form action="/admin/bakery/list" method="GET" class="form-inline" name="category-form">
+                <div class="form-group">
+                    <label>Choose a category: </label>
+                    <select name="categoryId" class="form-control m-3">
+                        <option value="0">All</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="0">
+                                <a href="Mảk/Detail/@item.RollNumber"> @item.FirstName @item.LastName</a>
+                            </option>
+                        }
+                    </select>
+                </div>
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr class="row">
+                    <th class="col-md-1"></th>
+                    <th class="col-md-1">Avatar</th>
+                    <th class="col-md-2"> @Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th class="col-md-2"> @Html.DisplayNameFor(model => model.LastName)</th>
+                    <th class="col-md-3">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th class="col-md-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="row" id="row-item-@item.RollNumber">
+                        <td class="col-md-1 text-center">
+                            <input type="checkbox" class="check-item" id="check-id-@item.RollNumber">
+                        </td>
+                        <td class="col-md-1">
+                            @*<div class="card"
+                                     style="background-image: url('{{$item->images}}'); background-size: cover; width: 60px; height: 60px;">
+                                </div>*@
+                        </td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td class="col-md-2"> @Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="col-md-3">
+                            <a asp-action="Edit" asp-route-id="@item.RollNumber">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.RollNumber">Details</a> |
+                            <a href="#" id="@item.RollNumber">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-8 form-inline">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="check-all">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Check All
+                    </label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <select id="select-action" class="form-control">
+                        <option selected value="0">-- Hãy chọn lựa chọn của bạn --</option>
+                        <option value="1">Chọn tất cả</option>
+                        <option value="2">Lựa chọn khác</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+            </div>
+            @*<div class="col-md-4">
+                    <div class="float-right">
+                        {{ $bakeries_in_view -> appends($_GET) -> links() }}
+                    </div>
+                </div>*@
+        </div>
+        @*@else
+            <div class="alert alert-info" role="alert">
+                {!! __('message.tip_create_bakery') !!}
+            </div>
+            @endif*@
+    </div>
+</div>
