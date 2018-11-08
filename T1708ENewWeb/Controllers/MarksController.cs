@@ -141,12 +141,12 @@ namespace T1708ENewWeb.Controllers
 
             foreach (var markId in stringMarkIds)
             {
-                var mark = _context.Student.Find(Convert.ToInt32(markId));
+                var mark = _context.Mark.Find(Convert.ToInt32(markId));
                 if (mark == null)
                 {
                     return NotFound();
                 }
-                _context.Student.Remove(mark);
+                _context.Mark.Remove(mark);
 
             }
             _context.SaveChanges();
